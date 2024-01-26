@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 export default function  Signup() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [loggedIn, setLoggedIn] = useState(false)
   const user = JSON.parse(localStorage.getItem("user-capstone"))
 
   function createAccount(){
@@ -13,6 +14,7 @@ export default function  Signup() {
         // Signed up 
         const user = userCredential.user;
         localStorage.setItem("user-capstone", JSON.stringify(user));
+        setLoggedIn(true)
         // ...
       })
       .catch((error) => {
@@ -33,6 +35,7 @@ export default function  Signup() {
     <button onClick={createAccount}>Create Account</button>
     <Link to="/login">login</Link>
     <Link to="/">Home</Link>
+    { loggedIn && <Navigate to="/user-login"/>}
     { user && <Navigate to="/user-login"/>}
 </div>
   )

@@ -6,13 +6,14 @@ import { Navigate } from 'react-router-dom';
 export default function Login() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [loggedIn, setLoggedIn] = useState(false)
   function loginAccount(){
     signInWithEmailAndPassword(window.auth, username, password)
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
         localStorage.setItem("user-capstone", JSON.stringify(user));
-
+        setLoggedIn(true)
         // ...
       })
       .catch((error) => {
@@ -32,6 +33,7 @@ export default function Login() {
     <button onClick={loginAccount}>login to account</button>
     <Link to="/sign-up">sign up</Link>
     <Link to="/">Home</Link>
+    { loggedIn && <Navigate to="/user-login"/>}
     { user && <Navigate to="/user-login"/>}
 </div>
   )
