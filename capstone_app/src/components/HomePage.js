@@ -6,10 +6,9 @@ export default function HomePage() {
 
   return (
     <div>
-        <h1>HomePage</h1>
+        <h1>Landing Page</h1>
         <Link to="/login">login</Link>
         { user && <Navigate to="/user-login"/>}
-        
     </div>
   )
 }

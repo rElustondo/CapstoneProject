@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
+import { getDatabase } from "firebase/database";
+
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -22,6 +24,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+window.db = db
 const auth = getAuth(app);
 window.auth = auth
 const root = ReactDOM.createRoot(document.getElementById('root'));
