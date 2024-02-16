@@ -20,14 +20,15 @@ function MyComponent({userDataFromDatabase}) {
         );
         if(contractorData.basicPrice) set(ref(db, 'users/' + user.uid + "/contractorData/basicPrice"), contractorData.basicPrice
         );
-        if(contractorData.specialties.snowShoveling!=null) set(ref(db, 'users/' + user.uid + "/contractorData/specialties/snowShoveling"), contractorData.specialties.snowShoveling
+        if(contractorData.specialties){
+        if(contractorData.specialties.snowShoveling!=null && contractorData.specialties.snowShoveling!=undefined ) set(ref(db, 'users/' + user.uid + "/contractorData/specialties/snowShoveling"), contractorData.specialties.snowShoveling
         );
-        if(contractorData.specialties.landscaping!=null) set(ref(db, 'users/' + user.uid + "/contractorData/specialties/landscaping"), contractorData.specialties.landscaping
+        if(contractorData.specialties.landscaping!=null && contractorData.specialties.landscaping!=undefined ) set(ref(db, 'users/' + user.uid + "/contractorData/specialties/landscaping"), contractorData.specialties.landscaping
         );
-        if(contractorData.specialties.gardening!=null) set(ref(db, 'users/' + user.uid + "/contractorData/specialties/gardening"), contractorData.specialties.gardening
+        if(contractorData.specialties.gardening!=null && contractorData.specialties.gardening!=undefined) set(ref(db, 'users/' + user.uid + "/contractorData/specialties/gardening"), contractorData.specialties.gardening
         );
-        if(contractorData.specialties.drivewaySealing!=null) set(ref(db, 'users/' + user.uid + "/contractorData/specialties/drivewaySealing"), contractorData.specialties.drivewaySealing
-        );
+        if(contractorData.specialties.drivewaySealing!=null&& contractorData.specialties.gardening!=undefined) set(ref(db, 'users/' + user.uid + "/contractorData/specialties/drivewaySealing"), contractorData.specialties.drivewaySealing
+        );}
       }
         const contractsDummy = [
             {

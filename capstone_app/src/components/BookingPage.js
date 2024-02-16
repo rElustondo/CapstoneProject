@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './BookingPage.css';
+import { Link } from 'react-router-dom';
 
 // ServiceButton component for individual service selection
 const ServiceButton = ({ service, isSelected, onSelect }) => (
@@ -66,9 +67,11 @@ const BookingPage = () => {
           // Customize calendar props as needed
         />
       </div>
-      <button className="confirm-button" onClick={handleBookingConfirm}>
-        Confirm Booking
-      </button>
+      <Link to="/login">
+        <button className="confirm-button" onClick={handleBookingConfirm}>
+          Confirm Booking
+        </button>
+      </Link>
     </div>
   );
 };
