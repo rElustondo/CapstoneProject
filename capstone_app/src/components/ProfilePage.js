@@ -28,7 +28,8 @@ const ProfilePage = () => {
     console.log("userDataFromDatabase",userDataFromDatabase)
     
     function clientData(){
-      let cardEndingWith = userDataFromDatabase["payment-details"].card_number.split(" ")[userDataFromDatabase["payment-details"].card_number.split(" ").length-1]
+      debugger
+      let cardEndingWith = userDataFromDatabase["payment-details"] && userDataFromDatabase["payment-details"].card_number.split(" ")[userDataFromDatabase["payment-details"].card_number.split(" ").length-1]
         return (
         <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
           <Grid item xs={10} sm={6} md={4}>
@@ -52,7 +53,7 @@ const ProfilePage = () => {
                 </Typography>
                 <Typography>{userDataFromDatabase.clientData.phone}</Typography>
                 <Typography variant="h5"> <AccountBalanceWallet/> Billing Account:</Typography>
-                <Typography> {userDataFromDatabase["payment-details"]?`Card Ending in ${cardEndingWith}`:"Card Ending in 2235"} </Typography>
+                <Typography> {userDataFromDatabase["payment-details"] == undefined?"Card Ending in 2235":`Card Ending in ${cardEndingWith}`} </Typography>
               </CardContent>
             </Card>
             <div>
@@ -117,6 +118,8 @@ const ProfilePage = () => {
     <Container>
         {userDataFromDatabase&&(userDataFromDatabase.contractorData == null ? clientData() :
          contractorData())}
+    
+
     </Container>
     </React.Fragment>
   );

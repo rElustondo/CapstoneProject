@@ -58,6 +58,7 @@ export default function UserPage() {
           { userData == null  && <Navigate to="/"/>}
           
         </Container>
+        <Link to="/contact_and_support"> Contact US</Link>
     </React.Fragment>
   )
 }
