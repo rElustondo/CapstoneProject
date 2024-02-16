@@ -11,12 +11,14 @@ import Serviceoverviewpage from './components/serviceoverviewpage';
 import FaqPage from './components/FaqPage';
 import ContactUs from './components/ContactUS';
 import PaymentForm from './components/PaymentForm';
+import PricingPage from './components/PricingPage';
+import BookingPage from './components/BookingPage';
+import LandingPage from './components/LandingPage';
 function App() {
   return (
    <BrowserRouter>
     <Routes>
       <Route path='/login' element={<Login/>}/>
-      <Route path='/' element={<HomePage />}/>
       <Route path='/sign-up' element={<Signup/>}/>
       <Route  path='/user-login' element={<UserPage/>} />
       <Route  path='/profile' element={<ProfilePage/>} />
@@ -25,6 +27,9 @@ function App() {
       <Route path='/payment' element={<PaymentForm/>} />
       <Route path='/faq' element={<FaqPage/>} />
       <Route path='/contact_and_support' element={<ContactUs/>} />
+      <Route path='/PricingPage/:userId/:imgId' element={<PricingPage/>} />
+      <Route path='/BookingPage' element={<BookingPage/>} />
+      <Route path='/' element={<LandingPage/>} />
     </Routes>
    </BrowserRouter>
   );

@@ -1,0 +1,144 @@
+.pricing-page {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #4a4a4a;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.header .navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: white;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #4a4a4a;
+  margin: 0 1rem;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.nav-link:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  display: block;
+  margin-top: 5px;
+  right: 0;
+  background: #4CAF50;
+  transition: width .3s;
+}
+
+.nav-link:hover:after {
+  width: 100%;
+  left: 0;
+  background-color: #4CAF50;
+}
+
+.main-content {
+  padding: 2rem 0;
+}
+
+.contact-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.avatar {
+  width: 80px
+}
+
+.contact-details {
+  margin-left: 1rem;
+}
+
+.contact-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.contact-number {
+  margin: 0;
+}
+
+.contact-stars {
+  margin: 0;
+  color: gold; /* or any other color you want for stars */
+}
+
+.team-info {
+  text-align: center;
+}
+
+.team-logo {
+  width: 100px; /* or adjust as needed */
+  margin-bottom: 0.5rem;
+}
+
+.team-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.team-motto {
+  margin: 0;
+  font-style: italic;
+}
+
+.pricing-section {
+  display: flex;
+  justify-content: space-around;
+}
+
+.pricing-option {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+  flex-basis: calc(33.33% - 2rem);
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+}
+
+.features-list li {
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.select-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.select-button:hover {
+  background-color: #45a049;
+}

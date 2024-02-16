@@ -1,0 +1,156 @@
+/* LandingPage.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #333;
+}
+
+.navigation-bar a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+
+.navigation-bar a:hover {
+  background-color: #777;
+}
+
+.main-content {
+  padding: 1rem;
+  padding-bottom: 5rem;
+}
+
+.service-section {
+  margin-bottom: 2rem;
+}
+
+.service-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.provider-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.provider-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  padding: 1rem;
+  width: 180px; /* Fixed width */
+}
+
+.provider-avatar {
+  width: 100px; /* Fixed width */
+  height: 100px; /* Fixed height */
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.provider-name {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.provider-rate {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.booking-button {
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.booking-button:hover {
+  background-color: #4cae4c;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.slogan {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .provider-list {
+    justify-content: left;
+  }
+
+  .provider-card {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
+
+/* LandingPage.css */
+
+/* LandingPage.css */
+
+/* ...existing styles... */
+
+.service-section {
+  margin-bottom: 0.5rem;
+  overflow: hidden; /* To contain the floating elements */
+}
+
+.service-header {
+  position: relative;
+  color: #fff;
+  height: 2cm; /* Adjust based on your actual image height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.service-title {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.provider-list {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-padding-left: 1rem; /* Adjust as needed to ensure the first item is fully visible */
+  scrollbar-width: none;
+}
+
+.provider-list::-webkit-scrollbar {
+  display: none;
+}
+
+
