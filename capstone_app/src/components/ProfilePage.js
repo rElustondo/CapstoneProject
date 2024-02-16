@@ -26,8 +26,9 @@ const ProfilePage = () => {
     },[])
     debugger
     console.log("userDataFromDatabase",userDataFromDatabase)
-
+    
     function clientData(){
+      let cardEndingWith = userDataFromDatabase["payment-details"].card_number.split(" ")[userDataFromDatabase["payment-details"].card_number.split(" ").length-1]
         return (
         <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
           <Grid item xs={10} sm={6} md={4}>
@@ -51,11 +52,11 @@ const ProfilePage = () => {
                 </Typography>
                 <Typography>{userDataFromDatabase.clientData.phone}</Typography>
                 <Typography variant="h5"> <AccountBalanceWallet/> Billing Account:</Typography>
-                <Typography> Card Ending in 1234 </Typography>
+                <Typography> {userDataFromDatabase["payment-details"]?`Card Ending in ${cardEndingWith}`:"Card Ending in 2235"} </Typography>
               </CardContent>
             </Card>
             <div>
-              <Link>Payment Settings Page</Link>
+              <Link to='/payment'>Payment Settings Page</Link>
             </div>
           </Grid>
       </Grid>

@@ -1,0 +1,76 @@
+/* PaymentForm.css */
+
+.payment-form {
+  background-color: #dddddd; /* Adjust the color to match the exact green */
+  padding: 80px;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 3em;
+  color: rgb(21, 20, 20);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  position: relative; /* Add position relative to contain absolute positioned elements */
+}
+
+.payment-form h2 {
+  text-align: center;
+  margin-bottom: 20px; /* Add some spacing below the heading */
+}
+
+.home-button {
+  position: absolute; /* Position the home-button relative to its containing block */
+  top: 10px; /* Adjust the top position as needed */
+  left: 10px; /* Adjust the left position as needed */
+  font-size: 20px;
+  color: #192502;
+}
+
+.payment-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 30px; /* Increase the spacing between input groups */
+}
+
+.input-group label {
+  margin-bottom: 10px; /* Add some spacing below the label */
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px; /* Increase padding for better readability */
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.address-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.address-group label {
+  margin-bottom: 5px;
+}
+
+.address-group input {
+  width: calc(50% - 5px);
+}
+
+button {
+  background-color: #4caf50; /* Lighter green */
+  color: rgb(14, 9, 9);
+  padding: 12px 20px; /* Increase padding for better button appearance */
+  margin-top: 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+button:hover {
+  background-color: #13e600; /* Darker green on hover */
+}
