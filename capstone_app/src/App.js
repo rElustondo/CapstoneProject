@@ -6,7 +6,8 @@ import HomePage from './components/HomePage';
 import Signup from './components/Signup';
 import UserPage from './components/UserPage';
 import ProfilePage from './components/ProfilePage';
-
+import Aboutus from './components/Aboutus';
+import Serviceoverviewpage from './components/serviceoverviewpage';
 function App() {
   return (
    <BrowserRouter>
@@ -16,6 +17,8 @@ function App() {
       <Route path='/sign-up' element={<Signup/>}/>
       <Route  path='/user-login' element={<UserPage/>} />
       <Route  path='/profile' element={<ProfilePage/>} />
+      <Route path='/Aboutus' element={<Aboutus/>}/>
+      <Route path='/Aboutus/Service' element={<Serviceoverviewpage/>} />
     </Routes>
    </BrowserRouter>
   );

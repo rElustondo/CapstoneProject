@@ -8,6 +8,7 @@ export default function HomePage() {
     <div>
         <h1>Landing Page</h1>
         <Link to="/login">login</Link>
+        <Link to="/Aboutus">Aboutus</Link>
         { user && <Navigate to="/user-login"/>}
     </div>
   )
