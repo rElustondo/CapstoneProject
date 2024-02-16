@@ -1,9 +1,10 @@
 
 import React,  { useState, useEffect }  from 'react'
-import {  AccountCircle as AccountCircleIcon } from '@mui/icons-material';
+import { Home as HomeIcon, AccountCircle as AccountCircleIcon, FunctionsOutlined, Dashboard } from '@mui/icons-material';
 import { Link, Navigate } from 'react-router-dom'
 import { ref, onValue,getDatabase  } from "firebase/database";
 import { AppBar, Toolbar, IconButton, Typography, Button, Box, Container} from '@mui/material';
+import ContractorDashboard from './ContractorDashboard';
 export default function UserPage() {
 
     const db = getDatabase()
@@ -26,7 +27,12 @@ export default function UserPage() {
             setUserDataFromDatabase(data);
         });
     },[])
+    
     if(userDataFromDatabase == null) return 'please pick another user, one that is in the databse'
+    function dashboard( ){
+      return (<ContractorDashboard userDataFromDatabase={userDataFromDatabase}/>)
+      // return (<div><input type='text' value={contractorData.name}></input></div>)
+    }
   return (
     <React.Fragment>
         <Box sx={{ flexGrow: 1 }}>
@@ -46,11 +52,12 @@ export default function UserPage() {
         </Box>
         <Container>
           <h1>{userDataFromDatabase.contractorData == null ? "User" : "Contractor"} Dashboard</h1>
+          Welcome {userData&& userData.email}!
+          {userDataFromDatabase.contractorData == null ? "User Dashboard details" :userDataFromDatabase.contractorData&&dashboard()}
           {loggedOut && <Navigate to="/login"/>}
           { userData == null  && <Navigate to="/"/>}
-          welcome {userData&& userData.email}
+          
         </Container>
-        <Link to='/contact_and_support'>contact and support</Link>
     </React.Fragment>
   )
 }
