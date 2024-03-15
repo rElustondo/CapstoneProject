@@ -61,7 +61,7 @@ export default function UserPage() {
           </AppBar>
         </Box>
         <Container>
-          <h1>{userDataFromDatabase.contractorData == null ? "User" : "Contractor"} Dashboard</h1>
+          <h1>{userDataFromDatabase.contractorData ? "Contractor" :userDataFromDatabase.clientData? "User": userDataFromDatabase.adminData&&"Admin"} Dashboard</h1>
           Welcome {userData&& userData.email}!
           {userDataFromDatabase.clientData ? clientDashboard() :userDataFromDatabase.contractorData?dashboard():userDataFromDatabase.adminData&&adminDashboard()}
           {loggedOut && <Navigate to="/login"/>}
