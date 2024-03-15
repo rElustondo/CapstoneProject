@@ -28,6 +28,7 @@ const ProfilePage = () => {
     console.log("userDataFromDatabase",userDataFromDatabase)
     
     function clientData(){
+      
       debugger
       let cardEndingWith = userDataFromDatabase["payment-details"] && userDataFromDatabase["payment-details"].card_number.split(" ")[userDataFromDatabase["payment-details"].card_number.split(" ").length-1]
         return (
@@ -36,7 +37,7 @@ const ProfilePage = () => {
             <Card>
               <CardHeader
                 avatar={
-                  <Avatar src={"https://i.pravatar.cc/300"} />
+                  <Avatar src={`https://i.pravatar.cc/150?img=${userDataFromDatabase.imgId}`} />
                 }
                 title={userDataFromDatabase.clientData.name}
               />
@@ -69,7 +70,7 @@ const ProfilePage = () => {
           <Grid item xs={10} sm={6} md={4}>
             <Card>
               <CardHeader
-                avatar={<Avatar src={"https://i.pravatar.cc/300"}/>}
+                avatar={<Avatar src={`https://i.pravatar.cc/150?img=${userDataFromDatabase.imgId}`}/>}
                 title={userDataFromDatabase.contractorData.name}
               />
               <CardContent>

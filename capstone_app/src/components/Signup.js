@@ -48,24 +48,24 @@ export default function  Signup() {
         console.log(error)
         // ..
       });
-
   }
   function writeUserData(userId) {
     if(isContractor){
       set(ref(db, 'users/' + userId), {
         email:username,
         contractorData,
-        userId
+        userId,
+        imgId: Math.floor(Math.random() * 71)
       });
     }
     else{
       set(ref(db, 'users/' + userId), {
         email:username,
         clientData,
-        userId
+        userId,
+        imgId: Math.floor(Math.random() * 71)
       });
     }
-    
   }
   function clientInputs(){
     return <div>

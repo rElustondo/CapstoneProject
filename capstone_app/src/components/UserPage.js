@@ -2,7 +2,7 @@
 import React,  { useState, useEffect }  from 'react'
 import { Home as HomeIcon, AccountCircle as AccountCircleIcon, FunctionsOutlined, Dashboard } from '@mui/icons-material';
 import { Link, Navigate } from 'react-router-dom'
-import { ref, onValue,getDatabase  } from "firebase/database";
+import { ref, onValue,getDatabase, set  } from "firebase/database";
 import { AppBar, Toolbar, IconButton, Typography, Button, Box, Container} from '@mui/material';
 import ContractorDashboard from './ContractorDashboard';
 export default function UserPage() {
@@ -33,6 +33,16 @@ export default function UserPage() {
       return (<ContractorDashboard userDataFromDatabase={userDataFromDatabase}/>)
       // return (<div><input type='text' value={contractorData.name}></input></div>)
     }
+    function clientDashboard( ){
+      return (<div>
+        <h1>Client Dashboard</h1>
+      </div>)
+    }
+    function adminDashboard( ){
+      return (<div>
+        <h1>Admin Dashboard</h1>
+      </div>)
+    }
   return (
     <React.Fragment>
         <Box sx={{ flexGrow: 1 }}>
@@ -53,10 +63,9 @@ export default function UserPage() {
         <Container>
           <h1>{userDataFromDatabase.contractorData == null ? "User" : "Contractor"} Dashboard</h1>
           Welcome {userData&& userData.email}!
-          {userDataFromDatabase.contractorData == null ? "User Dashboard details" :userDataFromDatabase.contractorData&&dashboard()}
+          {userDataFromDatabase.clientData ? clientDashboard() :userDataFromDatabase.contractorData?dashboard():userDataFromDatabase.adminData&&adminDashboard()}
           {loggedOut && <Navigate to="/login"/>}
           { userData == null  && <Navigate to="/"/>}
-          
         </Container>
         <Link to="/contact_and_support"> Contact US</Link>
     </React.Fragment>

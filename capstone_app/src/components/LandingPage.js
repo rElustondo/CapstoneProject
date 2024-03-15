@@ -67,7 +67,7 @@ const ServiceSection = (prop) => {
     </div>
     <div className="provider-list">
       {prop.providers&&prop.providers.filter(f=>f.contractorData).map((provider, index) => (
-        <ProviderCard img={index} key={index} id={provider.userId} contractorData={provider.contractorData} />
+        <ProviderCard img={provider.imgId?provider.imgId:index} key={index} id={provider.userId} contractorData={provider.contractorData} />
       ))}
     </div>
   </div>
