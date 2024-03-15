@@ -191,6 +191,9 @@ export default function  Signup() {
           <Link to="/login">Login</Link>
         </Grid>
         <Grid item>
+          <Link to="/admin-sign-up">Admin Sign Up</Link>
+        </Grid>
+        <Grid item>
           <Link to="/">Home</Link>
         </Grid>
       </Grid>

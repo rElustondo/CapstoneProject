@@ -64,6 +64,32 @@ const ProfilePage = () => {
       </Grid>
         )
     }
+    function adminData(){
+      debugger
+      return (
+        <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
+          <Grid item xs={10} sm={6} md={4}>
+            <Card>
+              <CardHeader
+                avatar={
+                  <Avatar src={`https://i.pravatar.cc/150?img=${userDataFromDatabase.imgId}`} />
+                }
+                title={userDataFromDatabase.adminData.name}
+              />
+              <CardContent>
+                <Typography variant="h3">Profile Details</Typography>
+                <Typography variant="h5"><ContactPage/> Name:</Typography>
+                <Typography>{userDataFromDatabase.adminData.name}</Typography>
+                <Typography variant="h5">  
+                  <Phone /> Phone:
+                </Typography>
+                <Typography>{userDataFromDatabase.adminData.phone}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+      </Grid>
+        )
+    }
     function contractorData(){
       return (
         <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
@@ -117,8 +143,8 @@ const ProfilePage = () => {
       </AppBar>
     </Box>
     <Container>
-        {userDataFromDatabase&&(userDataFromDatabase.contractorData == null ? clientData() :
-         contractorData())}
+        {userDataFromDatabase&&(userDataFromDatabase.contractorData ? contractorData() : userDataFromDatabase.clientData?clientData(): userDataFromDatabase.adminData&&adminData()
+         )}
     
 
     </Container>

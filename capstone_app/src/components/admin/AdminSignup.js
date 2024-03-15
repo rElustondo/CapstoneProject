@@ -1,6 +1,13 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom'
+import { useState } from 'react';
+import { TextField, Button, Container } from '@mui/material';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { ref, set, getDatabase } from 'firebase/database';
+
 
 export default function AdminSignup() {
+    const db = getDatabase()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [adminData, setAdminData] = useState({
@@ -36,34 +43,49 @@ export default function AdminSignup() {
         });
       }
   return (
-    <div>
-        <h1>Admin Signup</h1>
-        <TextField
-        margin="normal"
-        fullWidth
-        label="Email"
-        type="text"
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <TextField
-        margin="normal"
-        fullWidth
-        label="Password"
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-        <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={createAccount}
-            sx={{ mt: 2, mb: 2 }}
-        >
-            Create Account
-        </Button> 
-        {loggedIn && <Navigate to="/admin-page" />}
-        {user && user.isAdmin && <Navigate to="/admin-page" />}
-        {user && !user.isAdmin && <Navigate to="/user-login" />}
-    </div>
+    <Container component="main" maxWidth="xs" sx={{ display: 'flex', alignItems: 'center', height: 'auto' }}>
+        <div>
+            <h1>Admin Signup</h1>
+            <TextField
+                margin="normal"
+                fullWidth
+                label="Email"
+                type="text"
+                onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+                margin="normal"
+                fullWidth
+                label="Password"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+                margin="normal"
+                fullWidth
+                label="Full Name"
+                type="text"
+                onChange={(e) => setAdminData({ ...adminData, name: e.target.value })}/>
+            <TextField 
+                margin="normal"
+                fullWidth
+                label="Phone Number"
+                type="text"
+                onChange={(e) => setAdminData({ ...adminData, phone: e.target.value })}/>
+            <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={createAccount}
+                sx={{ mt: 2, mb: 2 }}
+            >
+                Create Account
+            </Button> 
+        </div>
+     
+        
+        {loggedIn && <Navigate to="/user-login" />}
+        {user && <Navigate to="/user-login" />}
+    </Container>
   )
 }

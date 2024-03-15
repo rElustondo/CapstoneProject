@@ -14,13 +14,14 @@ import PaymentForm from './components/PaymentForm';
 import PricingPage from './components/PricingPage';
 import BookingPage from './components/BookingPage';
 import LandingPage from './components/LandingPage';
+import AdminSignup from './components/admin/AdminSignup';
 function App() {
   return (
    <BrowserRouter>
     <Routes>
       <Route path='/login' element={<Login/>}/>
       <Route path='/sign-up' element={<Signup/>}/>
-      <Route path='/admin-sign-up' element={<HomePage/>}/>
+      <Route path='/admin-sign-up' element={<AdminSignup/>}/>
       <Route  path='/user-login' element={<UserPage/>} />
       <Route  path='/profile' element={<ProfilePage/>} />
       <Route path='/Aboutus' element={<Aboutus/>}/>
