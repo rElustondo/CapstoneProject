@@ -5,6 +5,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { ref, onValue,getDatabase, set  } from "firebase/database";
 import { AppBar, Toolbar, IconButton, Typography, Button, Box, Container} from '@mui/material';
 import ContractorDashboard from './ContractorDashboard';
+import ClientDashboard from './ClientDashboard';
 export default function UserPage() {
 
     const db = getDatabase()
@@ -35,6 +36,7 @@ export default function UserPage() {
     }
     function clientDashboard( ){
       return (<div>
+        <ClientDashboard></ClientDashboard>
       </div>)
     }
     function adminDashboard( ){
@@ -66,7 +68,6 @@ export default function UserPage() {
           {loggedOut && <Navigate to="/login"/>}
           { userData == null  && <Navigate to="/"/>}
         </Container>
-        <Link to="/contact_and_support"> Contact US</Link>
     </React.Fragment>
   )
 }
