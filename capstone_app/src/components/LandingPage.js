@@ -113,7 +113,6 @@ console.log(usersDataFromDatabase)
       ))}
     </main>
     <Footer />
-    { user && <Navigate to="/user-login"/>}
   </div>
 );
 }

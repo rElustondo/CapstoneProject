@@ -4,10 +4,13 @@ import { Home as HomeIcon } from '@mui/icons-material';
 import { Link, Navigate } from 'react-router-dom';
 import { ref, onValue,getDatabase  } from "firebase/database";
 import { Phone, LocationOn, MonetizationOn, AccountBalanceWallet,ContactPage } from '@mui/icons-material';
+import AvailabilitySection from './AvailabilitySection';
 
 const ProfilePage = () => {
     const db = getDatabase()
     const [loggedOut,setLoggedOut] = useState(false)
+
+    const [openAvailabilitySection,setOpenAvailabilitySection] = useState(false)
 
     const [userDataFromDatabase,setUserDataFromDatabase] = useState(null)
     
@@ -118,12 +121,13 @@ const ProfilePage = () => {
                 {Object.entries(userDataFromDatabase.contractorData.specialties).map(([key, value]) => (
                   <Chip key={key} label={key} color={value ? 'primary' : 'default'} />
                 ))}
+                <div><Button onClick={() => setOpenAvailabilitySection(!openAvailabilitySection)}>Availability</Button></div>
+                {openAvailabilitySection && <AvailabilitySection userData={userDataFromDatabase}/>}
               </CardContent>
             </Card>
           </Grid>
         </Grid>
       );
-        return <p>{JSON.stringify(userDataFromDatabase.contractorData)}</p>
     }
 
   return (<React.Fragment>
@@ -133,7 +137,7 @@ const ProfilePage = () => {
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="home">
-          <Link to="/"><HomeIcon /></Link>
+          <Link to="/user-login"><HomeIcon /></Link>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} >
             Profile Settings
@@ -145,7 +149,7 @@ const ProfilePage = () => {
     <Container>
         {userDataFromDatabase&&(userDataFromDatabase.contractorData ? contractorData() : userDataFromDatabase.clientData?clientData(): userDataFromDatabase.adminData&&adminData()
          )}
-    
+
 
     </Container>
     </React.Fragment>

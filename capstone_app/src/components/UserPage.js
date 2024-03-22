@@ -35,7 +35,6 @@ export default function UserPage() {
     }
     function clientDashboard( ){
       return (<div>
-        <h1>Client Dashboard</h1>
       </div>)
     }
     function adminDashboard( ){
@@ -61,7 +60,7 @@ export default function UserPage() {
           </AppBar>
         </Box>
         <Container>
-          <h1>{userDataFromDatabase.contractorData ? "Contractor" :userDataFromDatabase.clientData? "User": userDataFromDatabase.adminData&&"Admin"} Dashboard</h1>
+          <h1>{userDataFromDatabase.contractorData ? "Contractor" :userDataFromDatabase.clientData? "Client": userDataFromDatabase.adminData&&"Admin"} Dashboard</h1>
           Welcome {userData&& userData.email}!
           {userDataFromDatabase.clientData ? clientDashboard() :userDataFromDatabase.contractorData?dashboard():userDataFromDatabase.adminData&&adminDashboard()}
           {loggedOut && <Navigate to="/login"/>}
