@@ -23,14 +23,14 @@ const ContactCard = ({ name, contact, img }) => (
   </div>
 );
 
-const PricingOption = ({ title, features, price }) => (
+const PricingOption = ({ title, features, price, contractorData }) => (
   <div className="pricing-option">
     <h3>{title}</h3>
     <ul className="features-list">
       {features.map((feature, index) => <li key={index}>{feature}</li>)}
     </ul>
     <p className="price">{price}/per hour</p>
-    <a href="/BookingPage" className="select-button">Select</a>
+    <a href={`/BookingPage/${contractorData&&contractorData.userId}/${price}`} className="select-button">Select</a>
   </div>
 );
 
@@ -61,7 +61,7 @@ let price = usersDataFromDatabase&&usersDataFromDatabase.contractorData&&usersDa
       </header>
       <main className="main-content">
         <section className="contact-section">
-          <ContactCard  img={imgId} name={usersDataFromDatabase.contractorData.name} contact={usersDataFromDatabase.contractorData.phone} />
+          <ContactCard  img={imgId} name={usersDataFromDatabase.contractorData.name} contractorData={usersDataFromDatabase} contact={usersDataFromDatabase.contractorData.phone} />
           <div className="team-info">
             <img src="/path-to-team-logo.png" alt="Team 24 Logo" className="team-logo"/>
             <p className="team-name">Team 24</p>
@@ -69,9 +69,9 @@ let price = usersDataFromDatabase&&usersDataFromDatabase.contractorData&&usersDa
           </div>
         </section>
         <section className="pricing-section">
-          <PricingOption title="Basic" features={featuresBasic} price={price} />
-          <PricingOption title="Plus" features={featuresPlus} price={`$${Number(price)+10}`}/>
-          <PricingOption title="Pro" features={featuresPro} price={`$${Number(price)+15}`}/>
+          <PricingOption title="Basic" features={featuresBasic} price={price} contractorData={usersDataFromDatabase} />
+          <PricingOption title="Plus" features={featuresPlus} price={`$${Number(price)+10}`} contractorData={usersDataFromDatabase}/>
+          <PricingOption title="Pro" features={featuresPro} price={`$${Number(price)+15}`} contractorData={usersDataFromDatabase}/>
         </section>
       </main>
     </div>

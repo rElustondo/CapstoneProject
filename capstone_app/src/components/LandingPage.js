@@ -66,7 +66,20 @@ const ServiceSection = (prop) => {
       <h2 className="service-title">{prop.service.title}</h2>
     </div>
     <div className="provider-list">
-      {prop.providers&&prop.providers.filter(f=>f.contractorData).map((provider, index) => (
+      {prop.providers&&prop.providers.filter(f=>f.contractorData).filter(contractor=>{
+        if(prop.service.title==="Snow Shoveling"){
+          return contractor.contractorData.specialties.snowShoveling
+        }
+        if(prop.service.title==="Landscaping"){
+          return contractor.contractorData.specialties.landscaping
+        }
+        if(prop.service.title==="Garderning"){
+          return contractor.contractorData.specialties.gardening
+        }
+        if(prop.service.title==="Driveway Sealing"){
+          return contractor.contractorData.specialties.drivewaySealing
+        } 
+      }).map((provider, index) => (
         <ProviderCard img={provider.imgId?provider.imgId:index} key={index} id={provider.userId} contractorData={provider.contractorData} />
       ))}
     </div>

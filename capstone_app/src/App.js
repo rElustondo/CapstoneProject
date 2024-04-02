@@ -30,6 +30,7 @@ function App() {
       <Route path='/faq' element={<FaqPage/>} />
       <Route path='/contact_and_support' element={<ContactUs/>} />
       <Route path='/PricingPage/:userId/:imgId' element={<PricingPage/>} />
+      <Route path='/BookingPage/:userId/:price' element={<BookingPage/>} />
       <Route path='/BookingPage' element={<BookingPage/>} />
       <Route path='/' element={<LandingPage/>} />
     </Routes>

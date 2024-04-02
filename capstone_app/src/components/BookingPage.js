@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './BookingPage.css';
+import { getDatabase, ref, push, set, onValue } from 'firebase/database';
+
 import { Link } from 'react-router-dom';
 
 // ServiceButton component for individual service selection
@@ -31,6 +34,31 @@ const ServiceList = ({ services, selectedService, onSelectService }) => (
 
 // BookingPage component
 const BookingPage = () => {
+  const db = getDatabase(); // Initialize Firebase database
+  const clientID = JSON.parse(localStorage.getItem("user-capstone"))?.uid;
+  
+  
+  let { userId,price } = useParams();
+  const [contractorData,setContractorData] = useState(null)
+  const [discription,setDiscription] = useState(null)
+
+  const [clientData,setClientData] = useState(null)
+
+  useEffect(()=>{
+    const userDataFromDatabaseRef = ref(db, 'users/' + userId);
+    const clientDataFromDatabaseRef = ref(db, 'users/' + clientID);
+
+    onValue(userDataFromDatabaseRef, (snapshot) => {
+        const data = snapshot.val();
+        debugger
+        setContractorData(data);
+    });
+    onValue(clientDataFromDatabaseRef, (snapshot) => {
+      const data = snapshot.val();
+      debugger
+      setClientData(data);
+  });
+  },[])
   const [services] = useState([
     'Snow Shoveling',
     'Landscaping',
@@ -48,10 +76,53 @@ const BookingPage = () => {
     setSelectedDate(date);
   };
 
-  const handleBookingConfirm = () => {
-    // Here you would typically send the booking data to a backend server
+  const handleBookingConfirm = (contractorData, price) => {
+   debugger
+    if (selectedService=="Snow Shoveling"&& !contractorData.contractorData.specialties.snowShoveling){
+      alert("contractor Doesn't do snow Shoveling")
+      return
+    }
+    if (selectedService=="Landscaping"&& !contractorData.contractorData.specialties.landscaping){
+      alert("contractor Doesn't do Landscaping")
+      return
+    }
+    if (selectedService=="Gardening"&& !contractorData.contractorData.specialties.gardening){
+      alert("contractor Doesn't do Gardening")
+      return
+    }
+    if (selectedService=="Driveway Sealing"&& !contractorData.contractorData.specialties.drivewaySealing){
+      alert("contractor Doesn't do Driveway Sealing")
+      return
+    }
+    // Push booking data to Firebase Realtime Database
+    const bookingsRef = ref(db, 'bookings');
+    const newBookingRef = push(bookingsRef);
+    console.log('New Booking Reference:', newBookingRef); // Log to inspect the object
+
+    const selectedDateTime = new Date(selectedDate);
+    selectedDateTime.setHours(8, 0, 0, 0); // Set the time to 8 AM
+
+    const selectedDateTime2 = new Date(selectedDate);
+    selectedDateTime2.setHours(16, 0, 0, 0); // Set the time to 4 PM
+  
+    // Use set function to save data
+    set(newBookingRef, {
+      service: selectedService, contractorId:contractorData.userId,
+      clientId: clientID, 
+      client_address: clientData.clientData.address,
+      bookingId:newBookingRef.key,
+      price_per_hour:price,
+      booking_time: selectedDateTime.toISOString(),
+      end_time: selectedDateTime2.toISOString(),
+      description: discription,
+      date: selectedDate.toISOString(), // Store date in ISO format
+    });
+    
+  
+    // Confirmation message
     alert(`Booking confirmed for ${selectedService} on ${selectedDate.toDateString()}`);
   };
+  
 
   return (
     <div className="booking-page">
@@ -67,11 +138,12 @@ const BookingPage = () => {
           // Customize calendar props as needed
         />
       </div>
-      <Link to="/login">
-        <button className="confirm-button" onClick={handleBookingConfirm}>
-          Confirm Booking
-        </button>
-      </Link>
+      setDiscription
+      <input type="text" onChange={e=>setDiscription(e.target.value)}></input>
+      <button className="confirm-button" onClick={()=>handleBookingConfirm(contractorData,price)}>
+        Confirm Booking
+      </button>
+      <Link to="/login">Login</Link>
     </div>
   );
 };
