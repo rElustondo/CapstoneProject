@@ -1,5 +1,7 @@
 import ImageUpload from "./ImageUpload";
-import React, { useState } from "react";
+import ContractRow from "./ContractRow";
+import { onValue } from "firebase/database";
+import React, { useEffect, useState } from "react";
 import { getDatabase, ref, set } from "firebase/database";
 import { TextField, Checkbox, Button, FormControlLabel } from "@mui/material";
 import {
@@ -18,8 +20,20 @@ function MyComponent({ userDataFromDatabase }) {
   const [contractorData, setContractorData] = useState({});
   const [updateProfile, setUpdateProfile] = useState(false);
   console.log(contractorData, "contractorData");
+  const [bookings, setBookings] = useState([]);
   const db = getDatabase();
   const user = JSON.parse(localStorage.getItem("user-capstone"));
+  useEffect(() => {
+    const bookingsFromDatabaseRef = ref(db, 'bookings/');
+ onValue(bookingsFromDatabaseRef , (snapshot) => {
+            const data = snapshot.val();
+            setBookings(Object.values(data).filter((booking)=>booking.contractorId == user.uid ));
+});
+  }, []);
+
+  console.log(bookings, "bookings");
+
+  
   function writeUserData(userId) {
     if (contractorData.name)
       set(
@@ -126,27 +140,18 @@ function MyComponent({ userDataFromDatabase }) {
               <TableHead>
                 <TableRow>
                   <TableCell>Client Name</TableCell>
-                  <TableCell>Total Invoiced Amount</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Recurring Weekly</TableCell>
-                  <TableCell>Address</TableCell>
-                  <TableCell>Specialty</TableCell>
+                  <TableCell>Booking Time (dd/mm/yyyy)</TableCell>
+                  <TableCell>End Time (dd/mm/yyyy)</TableCell>
+                  <TableCell>Client Address</TableCell>
+                  <TableCell>Service</TableCell>
                   <TableCell>Description</TableCell>
+                  <TableCell>Price Per Hour</TableCell>
+                  <TableCell>Booking ID</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {contracts.map((contract, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{contract.clientName}</TableCell>
-                    <TableCell>{contract.totalAmount}</TableCell>
-                    <TableCell>{contract.date}</TableCell>
-                    <TableCell>
-                      {contract.recurringWeekly ? "Yes" : "No"}
-                    </TableCell>
-                    <TableCell>{contract.address}</TableCell>
-                    <TableCell>{contract.specialty}</TableCell>
-                    <TableCell>{contract.description}</TableCell>
-                  </TableRow>
+                {bookings.map((contract, index) => (
+                  <ContractRow contract={contract} index={index} />
                 ))}
               </TableBody>
             </Table>

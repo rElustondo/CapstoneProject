@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Container, Grid} from '@mui/material';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getDatabase, ref as ref2, set } from 'firebase/database';
+import { TextField } from '@mui/material';
 
 function ImageUpload({userDataFromDatabase}) {
   const [images, setImages] = useState([]);
@@ -48,37 +49,40 @@ function handleUpload() {
   }
   console.log(images, "images");
   const renderImageInputs = () => {
-    return <input
-        accept="image/*"
-        id="image-input"
-        type="file"
-        multiple
-        onChange={handleImageChange}
-      />
+    return (
+      <input         accept="image/*"         id="image-input"         type="file"         multiple         onChange={handleImageChange}         style={{ marginTop: '40px' }}       />
+    );
   };
 
   const renderImages = () => {
-    return images.map((imageUrl, index) => (
-      <Grid item key={index}>
-        <img src={imageUrl} alt={`Image ${index + 1}`} style={{ maxWidth: '100%', maxHeight: '200px' }} />
+    return (
+      <Grid container spacing={2} justifyContent="center">
+        {images.map((imageUrl, index) => (
+          <Grid item key={index}>
+            <img src={imageUrl} alt={`Image ${index + 1}`} style={{ maxWidth: '100%', maxHeight: '200px' }} />
+          </Grid>
+        ))}
       </Grid>
-    ));
+    );
   };
-
+console.log(userDataFromDatabase, "userDataFromDatabase");
   return (
     <Container>
       <Grid container spacing={2} justifyContent="center">
         {renderImageInputs()}
       </Grid>
-      <Grid container spacing={2} justifyContent="center">
+      {/* <Grid container spacing={2} justifyContent="center">
         {renderImages()}
+      </Grid> */}
+      
+      {userDataFromDatabase && userDataFromDatabase.images && userDataFromDatabase.images.length >0 && userDataFromDatabase.images.map((imageUrl, index) => (
+        <img key={index} src={imageUrl} style={{ maxHeight: '256px', maxWidth: '256px' }} alt={`User Image ${index + 1}`} />
+      ))}
+      <Grid container justifyContent="center">
+        <Button variant="contained" color="primary" onClick={handleUpload}>
+          Upload
+        </Button>
       </Grid>
-    <Button onClick={handleUpload}>
-        Upload
-    </Button>
-    {userDataFromDatabase&&userDataFromDatabase.images &&userDataFromDatabase.images.map(imageUrl=>{
-    return <img src={imageUrl} style={{maxHeight:'256px', maxWidth:'256px'}}/>
-    }) }
     </Container>
   );
 }
