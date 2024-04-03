@@ -43,10 +43,14 @@ const BookingPage = () => {
   const [discription,setDiscription] = useState(null)
 
   const [clientData,setClientData] = useState(null)
+  
+  const [bookingData,setBookingData] = useState(null)
+
 
   useEffect(()=>{
     const userDataFromDatabaseRef = ref(db, 'users/' + userId);
     const clientDataFromDatabaseRef = ref(db, 'users/' + clientID);
+    const bookingsDataFromDatabaseRef = ref(db, 'bookings/');
 
     onValue(userDataFromDatabaseRef, (snapshot) => {
         const data = snapshot.val();
@@ -57,7 +61,12 @@ const BookingPage = () => {
       const data = snapshot.val();
       debugger
       setClientData(data);
-  });
+    });
+    onValue(bookingsDataFromDatabaseRef, (snapshot) => {
+      const data = snapshot.val();
+      debugger
+      setBookingData(Object.values(data));
+    });
   },[])
   const [services] = useState([
     'Snow Shoveling',
@@ -92,6 +101,19 @@ const BookingPage = () => {
     }
     if (selectedService=="Driveway Sealing"&& !contractorData.contractorData.specialties.drivewaySealing){
       alert("contractor Doesn't do Driveway Sealing")
+      return
+    }
+    let bookingExists = false;
+    bookingData.forEach((booking)=>{
+      let x = new Date(booking.booking_time)
+      let y = new Date(selectedDate.toISOString())
+      debugger
+      if(booking.contractorId == contractorData.userId && x.toDateString() == y.toDateString()){
+        bookingExists = true;
+      }
+    })
+    if(bookingExists){
+      alert("contractor is already booked for that day")
       return
     }
     // Push booking data to Firebase Realtime Database
