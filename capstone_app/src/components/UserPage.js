@@ -6,6 +6,7 @@ import { ref, onValue,getDatabase, set  } from "firebase/database";
 import { AppBar, Toolbar, IconButton, Typography, Button, Box, Container} from '@mui/material';
 import ContractorDashboard from './ContractorDashboard';
 import ClientDashboard from './ClientDashboard';
+import AdminDashboard from './admin/AdminDashboard';
 export default function UserPage() {
 
     const db = getDatabase()
@@ -42,6 +43,7 @@ export default function UserPage() {
     function adminDashboard( ){
       return (<div>
         <h1>Admin Dashboard</h1>
+        <AdminDashboard/>
       </div>)
     }
   return (

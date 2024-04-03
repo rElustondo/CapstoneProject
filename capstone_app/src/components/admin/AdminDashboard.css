@@ -1,0 +1,47 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .navbar {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .navbar a {
+    color: white;
+    padding: 0 15px;
+    text-decoration: none;
+  }
+  
+  .sidebar {
+    background-color: #f4f4f4;
+    padding: 15px;
+    width: 200px;
+  }
+  
+  .sidebar a {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 5px;
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
