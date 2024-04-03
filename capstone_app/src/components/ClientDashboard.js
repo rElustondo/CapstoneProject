@@ -21,70 +21,28 @@ export default function ClientDashboard() {
                 setUserData(data);
             };
 
-            const handleBookingsData = (snapshot) => {
-                const data = snapshot.val();
-                setBookings(data ? Object.values(data) : []);
-            };
+            // const handleBookingsData = (snapshot) => {
+            //     const data = snapshot.val();
+            //     setBookings(data ? Object.values(data) : []);
+            // };
 
             onValue(userRef, handleUserData);
-            onValue(bookingsRef, handleBookingsData);
+            // onValue(bookingsRef, handleBookingsData);
 
-            return () => {
-                off(userRef, handleUserData);
-                off(bookingsRef, handleBookingsData);
-            };
-        }
-    }, [db, userId]);
+           
+        }const bookingsFromDatabaseRef = ref(db, 'bookings/');
+        onValue(bookingsFromDatabaseRef , (snapshot) => {
+                   const data = snapshot.val();
+                   console.log(data,"123321")
+                   setBookings(Object.values(data).filter((booking)=>booking.clientId == userId ));
+       });
+    }, []);
+    
 
-    const bookingData = {
-      "bookings": [
-          {
-              "booking_id": 1,
-              "contractor_id": 101,
-              "client_id": 201,
-              "client_address": "123 Main St, City A",
-              "booking_time": "2024-03-22T10:00:00",
-              "end_time": "2024-03-22T11:30:00",
-              "price_per_hour": 50
-          },
-          {
-              "booking_id": 2,
-              "contractor_id": 102,
-              "client_id": 201,
-              "client_address": "456 Elm St, City B",
-              "booking_time": "2024-03-23T14:00:00",
-              "end_time": "2024-03-23T16:00:00",
-              "price_per_hour": 60
-          },
-          {
-              "booking_id": 3,
-              "contractor_id": 103,
-              "client_id": 203,
-              "client_address": "789 Oak St, City C",
-              "booking_time": "2024-03-24T09:30:00",
-              "end_time": "2024-03-24T12:00:00",
-              "price_per_hour": 55
-          },
-          {
-              "booking_id": 4,
-              "contractor_id": 104,
-              "client_id": 204,
-              "client_address": "987 Pine St, City D",
-              "booking_time": "2024-03-25T11:00:00",
-              "end_time": "2024-03-25T12:30:00",
-              "price_per_hour": 45
-          },
-          {
-              "booking_id": 5,
-              "contractor_id": 105,
-              "client_id": 205,
-              "client_address": "654 Maple St, City E",
-              "booking_time": "2024-03-26T08:00:00",
-              "end_time": "2024-03-26T09:30:00",
-              "price_per_hour": 70
-          }
-      ]
-  };
+    console.log(bookings, "bookings2");
+  
+    const user = JSON.parse(localStorage.getItem("user-capstone"));
+     
 
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null);
@@ -96,18 +54,29 @@ export default function ClientDashboard() {
             }
 
             const chartData = {
-                labels: bookingData.bookings.map(booking => new Date(booking.booking_time)),
+                labels: bookings.map(booking => new Date(booking.booking_time)),
                 datasets: [
                     {
                         label: "Price Per Hour",
-                        data: bookingData.bookings.map(booking => booking.price_per_hour),
+                        data: bookings.map(booking =>{
+                            let str = booking.price_per_hour
+                            if (str.startsWith('$')) {
+
+                                // Remove the dollar sign from the beginning of the string
+                            
+                                str = str.slice(1); // Removes the first character
+                            
+                            }
+                            return str
+                        }),
                         fill: false,
                         borderColor: "rgb(75, 192, 192)",
                         tension: 0.1
                     }
                 ]
             };
-
+            
+            console.log(chartData,"123123")
             const chartConfig = {
                 type: 'line',
                 data: chartData,
@@ -137,13 +106,12 @@ export default function ClientDashboard() {
                 }
             };
         }
-    }, [bookingData, userId]);
+    }, [bookings]);
 
     
     if (!userId) {
         return <Navigate to="/login" />;
     }
-
     return (
         <Container maxWidth="lg">
             <Typography variant="h4" component="h1" gutterBottom>Welcome, {userData?.clientData?.name || 'Client'}</Typography>
@@ -153,16 +121,15 @@ export default function ClientDashboard() {
                         <Paper elevation={3} sx={{ p: 2 }}>
                             <Typography variant="h6" gutterBottom>Your Bookings</Typography>
                             <List>
-                                {bookingData.bookings.length ? bookingData.bookings
-                                    .filter(v => v.client_id === 201)
+                                {bookings.length ? bookings
                                     .map(booking => (
                                         <Card key={booking.booking_id} variant="outlined" style={{ marginBottom: '1rem' }}>
                                             <CardContent>
-                                                <Typography variant="h6">Booking ID: {booking.booking_id}</Typography>
-                                                <Typography>Contractor ID: {booking.contractor_id}</Typography>
-                                                <Typography>Client ID: {booking.client_id}</Typography>
+                                                <Typography variant="h6">Booking ID: {booking.bookingId}</Typography>
+                                                <Typography>Contractor ID: {booking.contractorId}</Typography>
+                                                <Typography>Client ID: {booking.clientId}</Typography>
                                                 <Typography>Client Address: {booking.client_address}</Typography>
-                                                <Typography>Price Per Hour: ${booking.price_per_hour}</Typography>
+                                                <Typography>Price Per Hour: {booking.price_per_hour}</Typography>
                                                 <Typography>Booking Time: {new Date(booking.booking_time).toLocaleString()}</Typography>
                                                 <Typography>End Time: {new Date(booking.end_time).toLocaleString()}</Typography>
                                             </CardContent>
